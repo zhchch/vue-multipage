@@ -144,12 +144,10 @@ module.exports = webpackConfig
 var pages = utils.getEntry(['./src/module/*.html','./src/module/**/*.html']);
 
 for (var pathname in pages) {
-  // 配置生成的html文件，定义路径等
   var conf = {
     filename: pathname + '.html',
-    template: pages[pathname],   // 模板路径
-    inject: true,              // js插入位置
-    // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    template: pages[pathname],
+    inject: true,
     chunksSortMode: 'dependency'
   };
 

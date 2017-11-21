@@ -107,12 +107,10 @@ exports.getEntry = function (globPath) {
   globPath.forEach((itemPath) => {
     glob.sync(itemPath).forEach(function (entry) {
       basename = path.basename(entry, path.extname(entry));
-      if (entry.split('/').length > 4) {
-        pathname = basename;
-        entries[pathname] = entry;
-      } else {
-        entries[basename] = entry;
+      if (entry.split('/').length < 4) {
+        return;
       }
+      entries[basename] = entry;
     });
   });
   return entries;
