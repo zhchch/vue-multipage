@@ -1,6 +1,6 @@
-# m
+# vue-multipage
 
-> A Vue.js project
+> Depend on vue-template version: 1.2.3
 
 ## Build Setup
 
