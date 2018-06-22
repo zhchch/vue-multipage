@@ -113,5 +113,9 @@ exports.getEntry = function (globPath) {
       entries[basename] = entry;
     });
   });
+  const page = process.env['page'];
+  if (page && entries[page] && process.env.NODE_ENV !== 'production') {
+    return { [page]: entries[page] };
+  }
   return entries;
 }

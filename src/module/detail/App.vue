@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div>详情内容</div>
+    <h1>详情内容</h1>
+    <hello></hello>
   </div>
 </template>
 

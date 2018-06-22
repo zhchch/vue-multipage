@@ -41,12 +41,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
-    // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    }),
   ]
 })
 
@@ -64,7 +58,7 @@ module.exports = new Promise((resolve, reject) => {
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [`Your application is running here: http://${config.dev.host}:${port}`],
+          messages: [`Your application is running here: http://${config.dev.host}:${port}${process.env['page']?`/${process.env['page']}.html`:''}`],
         },
         onErrors: config.dev.notifyOnErrors
         ? utils.createNotifierCallback()
@@ -76,7 +70,7 @@ module.exports = new Promise((resolve, reject) => {
   })
 })
 
-var pages = utils.getEntry(['./src/module/*.html','./src/module/**/*.html']);
+const pages = utils.getEntry(['./src/module/*.html','./src/module/**/*.html']);
 
 for (var pathname in pages) {
   var conf = {
@@ -87,7 +81,7 @@ for (var pathname in pages) {
   };
 
   if (pathname in devWebpackConfig.entry) {
-    conf.chunks = ['manifest', 'vendor', pathname];
+    conf.chunks = [pathname];
     conf.hash = true;
   }
 
